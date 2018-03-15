@@ -47,7 +47,7 @@
                 <td class="boton"><button type="text" onclick="addNumber('0')">0</button></td>
                 <td></td>
                 <td><button type="text" class="opera"  onclick="addOperation('+')">+</button></td>
-                <td><button type="text" class="opera" onclick="addOperation('exp')">EXP</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('^')">EXP</button></td>
             </tr>
             <tr>
                 <td colspan="4"><button type="text" class="top-margin" onclick="getTotal()">=</button></td>
@@ -93,15 +93,17 @@
             font-size: 12px; 
             cursor: hand;
             background-color: #fff;
-        }
-        .opera{
+       .opera{
             width: 32px; 
             border: 1px solid #000; 
             font-family: Arial;
             font-size: 12px; 
             cursor: hand;
             background-color: #fff;
-           
+        }
+        .opera:hover{
+            background: #acff38;;
+        }
 
     </style>
     
@@ -179,7 +181,7 @@
                 case "˅ˉ":
                     backTotal= Math.sqrt(parseFloat(total));
                     break;
-                case "exp":
+                case "^":
                     backTotal= Math.pow(parseFloat(backTotal), parseFloat(total));
                     break;
 
