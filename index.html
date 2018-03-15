@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CALCULADORA</title>
+
+<body style="text-align: center;">
+    <!--
+    Numero 1 <input type="text" id="text1" value="2" onclick="sumar()"><br><br>
+    Numero 2 <input type="text" id="text2" value="4" oninput="sumar()"><br><br>
+    Operacion <select id="operation" onchange="sumar()">
+        <option value="+">Sumar</option>
+        <option value="-">Restar</option>
+        <option value="*">Multiplicar</option>
+        <option value="/">Dividir</option>
+    </select><br><br>
+    Resultado <input type="text" id="text3" value="4"><br><br>-->
+    <table align="center">
+        <tbody>
+            <tr>
+                <td colspan="5"><input type="text" id="result" value="" readonly></td>
+            </tr>
+            <tr>
+                <td class="boton"><button type="text" onclick="addNumber('7')">7</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('8')">8</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('9')">9</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('/')">/</button></td>
+                <td><button type="text" class="opera" onclick="Memori()">M</button></td>
+            </tr>
+            <tr>
+                <td class="boton"><button type="text" onclick="addNumber('4')">4</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('5')">5</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('6')">6</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('*')">*</button></td>
+                 <td><button type="text" class="opera" onclick="addNumber('.')">.</button></td>
+            </tr>
+            <tr>
+                <td class="boton"><button type="text" onclick="addNumber('1')">1</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('2')">2</button></td>
+                <td class="boton"><button type="text" onclick="addNumber('3')">3</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('-')">-</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('˅ˉ')">˅ˉ</button></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="boton"><button type="text" onclick="addNumber('0')">0</button></td>
+                <td></td>
+                <td><button type="text" class="opera"  onclick="addOperation('+')">+</button></td>
+                <td><button type="text" class="opera" onclick="addOperation('exp')">EXP</button></td>
+            </tr>
+            <tr>
+                <td colspan="4"><button type="text" class="top-margin" onclick="getTotal()">=</button></td>
+                <td><button  class="opera" onclick="clearAll()">C</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+
+    <style type="text/css">
+        .boton{
+            width: 31px;
+            font-family: Arial; 
+            font-size: 12px; 
+            cursor: hand; 
+            background-color: grey;
+        }
+        #result{
+            margin-bottom: 5px;
+            text-align: right;
+            background-color: #acff38; 
+            color: #467702;
+            border: 1px 
+            solid #454545; 
+            width: 200px; 
+            height: 26px; 
+            font-family: Arial, Helvetica; 
+            font-size: 20px; 
+            line-height: 26 px;
+            text-align: right;
+        }
+        table{
+            border: 1px solid gray;
+            padding: 8px;
+            background: gray; border: 0;
+            text-align: center;
+        }
+        .top-margin{
+            margin-top: 5px;
+            width: 100%;
+            font-family: Arial;
+            font-size: 12px; 
+            cursor: hand;
+            background-color: #fff;
+        }
+        .opera{
+            width: 32px; 
+            border: 1px solid #000; 
+            font-family: Arial;
+            font-size: 12px; 
+            cursor: hand;
+            background-color: #fff;
+           
+
+    </style>
+    
+    <script>
+        /*
+        function sumar(){
+            var t1 = document.getElementById("text1").value;
+            var t2 = document.getElementById("text2").value;
+            switch(document.getElementById("operation").value){
+                case "+":
+                    document.getElementById("text3").value = parseInt(t1)+parseInt(t2);
+                    break;
+                case "-":
+                    document.getElementById("text3").value = parseInt(t1)-parseInt(t2);
+                    break;
+                case "*":
+                    document.getElementById("text3").value = parseInt(t1)*parseInt(t2);
+                    break;
+                case "/":
+                    document.getElementById("text3").value = parseInt(t1)/parseInt(t2);
+                    break;
+            }
+        }*/
+        var total = "";
+        var backTotal = "0";
+        var isOperation = false;
+        var memoria = "NaN";
+        function addNumber(num) {
+            if(total==""){
+                total = num;
+            }else{
+                total +=num;
+                document.getElementById("result").value = "";   
+            }
+            document.getElementById("result").value +=  total;
+        }
+        function addOperation(oper){
+
+            if(isOperation==false){
+                backTotal=total;
+                addNumber(oper);
+                total = 0;
+                isOperation = oper;
+                
+                return true;
+            }
+            isOperation = oper;
+
+        }
+        
+        function getTotal() {
+            if(isOperation==false ){
+                alert("no escogio operacion");
+                return true;
+
+            }
+            switch(isOperation){
+                case "+":
+                    backTotal= parseFloat(backTotal)+parseFloat(total);
+                    break;
+                case "-":
+                    backTotal= parseFloat(backTotal)-parseFloat(total);
+                    break;
+                case "*":
+                    backTotal= parseFloat(backTotal)*parseFloat(total);
+                    break;
+                case "/":
+                    if(total == "0"){
+                        alert("no dividir entre cero no se puede");
+                        document.getElementById("result").value = "indefinido, Error";
+                        return true;
+                    }
+                    backTotal= parseFloat(backTotal)/parseFloat(total);
+                    break;
+                case "˅ˉ":
+                    backTotal= Math.sqrt(parseFloat(total));
+                    break;
+                case "exp":
+                    backTotal= Math.pow(parseFloat(backTotal), parseFloat(total));
+                    break;
+
+            }
+            isOperation = false;
+            memoria = backTotal;
+            total = backTotal;
+            document.getElementById("result").value = backTotal;
+        }
+
+        function Memori(){
+         document.getElementById("result").value = memoria;
+         total = memoria;
+        }
+
+        function clearAll() {
+            total = "";
+            document.getElementById("result").value = total;
+            backTotal = "";
+            isOperation = false;
+        }
+        
+    </script>
+
+    </body>
+</html>
